@@ -7,12 +7,12 @@ import shutil
 import sys
 
 ################# ARGUMENT PARSING ##############################
-EXPECTED_ARGS = 11
+EXPECTED_ARGS = 12
 
 num_args = len(sys.argv)
 if num_args != EXPECTED_ARGS:
     print '\nUsage: %s pfa_exec pfa_inp_file pfa_output_file num_replicas num_proc data_dir output_dir pfa_inp_dir psf_file nfo_file' % sys.argv[0]
-    print '\nEXAMPLE: %s /Users/dnlebard/code/bin/pfa.cuda.e pfa.inp pfa.out 20 4 /Users/dnlebard/cg-peptide-project/pep250/python_run_pfa/data /Users/dnlebard/cg-peptide-project/pep250/python_run_pfa/output/replicas /Users/dnlebard/cg-peptide-project/pep250/pfa-test pep250.psf pep250.nfo\n' % sys.argv[0]
+    print '\nEXAMPLE: %s /Users/dnlebard/code/bin/pfa.cuda.e pfa.inp pfa.out 20 4 /Users/dnlebard/cg-peptide-project/pep250/python_run_pfa/data /Users/dnlebard/cg-peptide-project/pep250/python_run_pfa/output/replicas /Users/dnlebard/cg-peptide-project/pep250/pfa-test pep250.psf pep250.nfo num_beads\n' % sys.argv[0]
     sys.exit()
 
 pfa_exec   = sys.argv[1]
@@ -25,6 +25,7 @@ output_base = sys.argv[7] # OLD VERSION:  '/Users/dnlebard/cg-peptide-project/pe
 pfa_inp_dir = sys.argv[8] # (contains psf file)... OLD VERSION: '/Users/dnlebard/cg-peptide-project/pep250/pfa-test'
 psf_file_name = sys.argv[9]
 nfo_file_name = sys.argv[10]
+num_beads = sys.argv[11]
 #################################################################
 
 
@@ -35,7 +36,7 @@ cluster_cmd = 'PSF CLUSTER GYR\n'
 cluster_cutoff = '10.0\n'
 cluster_file_out = 'cluster.dat'
 
-num_beads = 20000
+#num_beads = 20000
 
 for rep_idx in range(num_replicas):
     print '\n\n=========== REPLICA %d =====================' % rep_idx
@@ -96,8 +97,8 @@ for rep_idx in range(num_replicas):
     psf_conf_file.write('0      0\n')
     psf_conf_file.write('0      0\n')
     psf_conf_file.write('0      0\n')
-    psf_conf_file.write(('1      ' + str(num_beads) + '\n'))
-    psf_conf_file.write((str(num_beads) + '\n'))
+    psf_conf_file.write(('1      ' + num_beads + '\n'))
+    psf_conf_file.write((num_beads + '\n'))
     psf_conf_file.close()
 
     # Create box.in input file
