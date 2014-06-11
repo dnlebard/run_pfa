@@ -135,7 +135,7 @@ for rep_idx in range(num_replicas):
     # Make and execute PFA command
     #pfa_cmd = 'mpiexec -np %d %s < %s > %s' % (num_proc,pfa_exec,pfa_input,pfa_output)
     pfa_cmd = 'mpiexec -np %d %s' % (num_proc,pfa_exec)
-    print 'RUNNING PFA COMMAND: |%s < %s >  %s| for replica %d .... ' % (pfa_cmd,pfa_input,pfa_output,rep_idx)
+    print 'RUNNING PFA COMMAND: |%s < %s >  %s| for replica %d of %d .... ' % (pfa_cmd,pfa_input,pfa_output,rep_idx,num_replicas)
     subprocess.call(pfa_cmd, stdout=open(pfa_output, 'w'), stdin=open(pfa_input), stderr=subprocess.STDOUT, shell=True)
     
     print '....DONE!'
