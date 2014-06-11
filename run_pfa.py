@@ -140,5 +140,5 @@ for rep_idx in range(num_replicas):
     print '....DONE!'
 
     # Remove dcd file
-    #os.remove(output_dcd)
+    os.remove(output_dcd)
     print '\n========================================\n'
